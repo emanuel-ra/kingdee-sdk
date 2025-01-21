@@ -5,3 +5,5 @@
 /.vscode
 /public/storage
 /storage/*.key
+/.phpunit.cache
+/composer.lock
