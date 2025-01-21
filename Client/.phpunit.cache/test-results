@@ -1,0 +1,1 @@
+{"version":1,"defects":{"HelloWorldTest::testHelloWorld":8,"KingDee\\Client\\tests\\HelloWorldTest::testHelloWorld":5},"times":{"HelloWorldTest::testHelloWorld":0.007,"KingDee\\Client\\tests\\HelloWorldTest::testHelloWorld":0.003}}

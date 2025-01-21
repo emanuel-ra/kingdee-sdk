@@ -1,0 +1,25 @@
+{
+  "name": "kingdee/client",
+  "description": "This application helps the user to consume the webservice of KingDee",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "KingDee\\Client\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Emanuel Ramirez Abarca",
+      "email": "85582567+emanuel-ra@users.noreply.github.com"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^11.5"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "KingDee\\Client\\Tests\\": "tests/"
+    }
+  }
+}
