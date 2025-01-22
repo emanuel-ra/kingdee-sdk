@@ -6,7 +6,7 @@
 /public/storage
 /storage/*.key
 /.phpunit.cache
-composer.lock
+/composer.lock
 /.DS_Store
 Thumbs.db
 /.sass-cache
