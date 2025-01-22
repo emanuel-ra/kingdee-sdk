@@ -38,5 +38,6 @@ Homestead.json
 
 composer.lock
 
-Client/composer.lock
+/Client/composer.lock
 
+Client/composer.lock
