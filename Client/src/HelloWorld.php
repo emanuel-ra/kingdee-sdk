@@ -2,10 +2,28 @@
 
 namespace KingDee\Client;
 
-class HelloWorld
+class HelloWorld extends ClientWS
 {
-    public function sayHello()
+    private $soapClient;
+    private $wsdl;
+    public function __construct()
     {
-        return "Hello, World!";
+        parent::__construct();
+        $this->wsdl = $this->getApiUrl();
+        if ($this->wsdl !== null) {
+            $this->soapClient = new \SoapClient($this->wsdl);
+        } else {
+            throw new \Exception('API URL is not set in the configuration.');
+        }
+    }
+
+    public function callHelloWorld()
+    {
+        try {
+            $response = $this->soapClient->HelloWorld();
+            return json_decode($response->HelloWorldResult);
+        } catch (\SoapFault $e) {
+            return 'SOAP Error: ' . $e->getMessage();
+        }
     }
 }
