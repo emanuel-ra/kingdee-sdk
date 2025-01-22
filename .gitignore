@@ -37,4 +37,6 @@ Homestead.json
 .env.backup
 
 composer.lock
+
 Client/composer.lock
+
