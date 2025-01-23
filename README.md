@@ -3,7 +3,6 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
 - [Contributing](#contributing)
@@ -12,24 +11,19 @@
 
 ## Introduction
 
-KingDee is a powerful and easy-to-use library for [describe the purpose of the library]. It provides [briefly describe key features or benefits].
-
-## Installation
-
-To install KingDee, use the following command:
-
-```bash
-npm install kingdee
-```
+KingDee is a powerful and easy-to-use library for the integration with the KingDee services through SOAP protocols. It provides a variety of functions that allows to integrate this web services.
 
 ## Usage
 
 Here is a basic example of how to use KingDee:
 
-```javascript
-const kingdee = require('kingdee')
+```php
+require 'vendor/autoload.php';
 
-// Your code here
+use KingDee\Client\HelloWorld;
+
+$helloWorld = new HelloWorld();
+echo $helloWorld->sayHello();
 ```
 
 ## Features
@@ -45,7 +39,3 @@ We welcome contributions! Please see our [contributing guidelines](CONTRIBUTING.
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For any questions or feedback, please contact [your contact information].
