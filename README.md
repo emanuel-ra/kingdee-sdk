@@ -1,31 +1,51 @@
-# KingDee Client
+# KingDee Library SDK
 
-This application helps the user to consume the webservice of KingDee.
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Introduction
+
+KingDee is a powerful and easy-to-use library for [describe the purpose of the library]. It provides [briefly describe key features or benefits].
 
 ## Installation
 
-1. Clone the repository:
+To install KingDee, use the following command:
 
-   ```sh
-   git clone https://github.com/yourusername/kingdee-client.git
-   cd kingdee-client
-   ```
-
-2. Install dependencies using Composer:
-
-   ```sh
-   composer install
-   ```
+```bash
+npm install kingdee
+```
 
 ## Usage
 
-To use the `HelloWorld` class, you can do the following:
+Here is a basic example of how to use KingDee:
 
-```php
-require 'vendor/autoload.php';
+```javascript
+const kingdee = require('kingdee')
 
-use KingDee\Client\HelloWorld;
-
-$helloWorld = new HelloWorld();
-echo $helloWorld->sayHello();
+// Your code here
 ```
+
+## Features
+
+- Feature 1: [description]
+- Feature 2: [description]
+- Feature 3: [description]
+
+## Contributing
+
+We welcome contributions! Please see our [contributing guidelines](CONTRIBUTING.md) for more details.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions or feedback, please contact [your contact information].

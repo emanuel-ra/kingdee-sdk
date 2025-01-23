@@ -16,4 +16,22 @@ class Branch extends ClientWS
             throw new \Exception('API URL is not set in the configuration.');
         }
     }
+
+    public function getBranches()
+    {
+        return "OK";
+    }
+
+    public function getBranch($id)
+    {
+        return "OK";
+    }
+    public function Create($id)
+    {
+        return "OK";
+    }
+    public function Update($id)
+    {
+        return "OK";
+    }
 }
