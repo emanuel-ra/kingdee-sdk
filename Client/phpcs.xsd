@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+	<element name="ruleset">
+		<complexType>
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<element name="description" type="xs:string" maxOccurs="1" minOccurs="0">
+				</element>
+				<element name="config" maxOccurs="unbounded" minOccurs="0">
+					<complexType>
+						<attribute name="name" type="xs:string" use="required">
+						</attribute>
+						<attribute name="value" type="xs:string" use="required">
+						</attribute>
+						<attributeGroup ref="applySelectively" />
+					</complexType>
+				</element>
+				<element name="file" maxOccurs="unbounded" minOccurs="0">
+					<complexType>
+						<simpleContent>
+							<extension base="xs:string">
+								<attributeGroup ref="applySelectively" />
+							</extension>
+						</simpleContent>
+					</complexType>
+				</element>
+				<element name="exclude-pattern" type="patternType" maxOccurs="unbounded" minOccurs="0">
+				</element>
+				<element name="arg" maxOccurs="unbounded" minOccurs="0">
+					<complexType>
+						<attribute name="name" type="xs:string">
+						</attribute>
+						<attribute name="value" type="xs:string">
+						</attribute>
+						<attributeGroup ref="applySelectively" />
+					</complexType>
+				</element>
+				<element name="ini" maxOccurs="unbounded" minOccurs="0">
+					<complexType>
+						<attribute name="name" type="xs:string" use="required">
+						</attribute>
+						<attribute name="value" type="xs:string" use="required">
+						</attribute>
+						<attributeGroup ref="applySelectively" />
+					</complexType>
+				</element>
+				<element name="autoload" type="xs:string" maxOccurs="unbounded" minOccurs="0">
+				</element>
+				<element name="rule" type="ruleType" maxOccurs="unbounded" minOccurs="0">
+				</element>
+			</choice>
+			<attribute name="name" type="xs:string">
+			</attribute>
+			<attribute name="namespace" type="xs:string">
+			</attribute>
+		</complexType>
+	</element>
+	<complexType name="ruleType">
+		<choice minOccurs="0" maxOccurs="unbounded">
+			<element name="exclude" maxOccurs="unbounded" minOccurs="0">
+				<complexType>
+					<attribute name="name" type="xs:string" use="required">
+					</attribute>
+					<attributeGroup ref="applySelectively" />
+				</complexType>
+			</element>
+			<element name="message" type="xs:string" maxOccurs="1" minOccurs="0">
+			</element>
+			<element name="severity" maxOccurs="1" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="xs:integer">
+							<attributeGroup ref="applySelectively" />
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="type" maxOccurs="1" minOccurs="0">
+				<complexType>
+					<simpleContent>
+						<extension base="messageType">
+							<attributeGroup ref="applySelectively" />
+						</extension>
+					</simpleContent>
+				</complexType>
+			</element>
+			<element name="exclude-pattern" type="patternType" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="include-pattern" type="patternType" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="properties" type="propertiesType" maxOccurs="1" minOccurs="0">
+			</element>
+		</choice>
+		<attribute name="ref" type="xs:string" use="required">
+		</attribute>
+		<attributeGroup ref="applySelectively" />
+	</complexType>
+	<complexType name="patternType">
+		<simpleContent>
+			<extension base="xs:string">
+				<attribute name="type">
+					<simpleType>
+						<restriction base="xs:string">
+							<enumeration value="relative">
+							</enumeration>
+						</restriction>
+					</simpleType>
+				</attribute>
+				<attributeGroup ref="applySelectively" />
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="propertiesType">
+		<sequence>
+			<element name="property" maxOccurs="unbounded" minOccurs="1">
+				<complexType>
+					<sequence>
+						<element name="element" maxOccurs="unbounded" minOccurs="0">
+							<complexType>
+								<attribute name="key" type="xs:string">
+								</attribute>
+								<attribute name="value" type="xs:string" use="required">
+								</attribute>
+							</complexType>
+						</element>
+					</sequence>
+					<attribute name="type">
+						<simpleType>
+							<restriction base="xs:string">
+								<enumeration value="array">
+								</enumeration>
+							</restriction>
+						</simpleType>
+					</attribute>
+					<attribute name="name" type="xs:string" use="required">
+					</attribute>
+					<attribute name="value" type="xs:string">
+					</attribute>
+					<attribute name="extend" type="xs:boolean" default="false" />
+					<attributeGroup ref="applySelectively" />
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	<simpleType name="messageType">
+		<restriction base="xs:string">
+			<enumeration value="error">
+			</enumeration>
+			<enumeration value="warning">
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<attributeGroup name="applySelectively">
+		<attribute name="phpcs-only" type="xs:boolean" default="false" />
+		<attribute name="phpcbf-only" type="xs:boolean" default="false" />
+	</attributeGroup>
+</schema>
