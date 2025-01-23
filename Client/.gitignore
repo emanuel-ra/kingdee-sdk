@@ -12,3 +12,4 @@ Thumbs.db
 /.sass-cache
 /.cache
 /coverage
+/.phpunit.cache/*

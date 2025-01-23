@@ -25,5 +25,15 @@
   },
   "require": {
     "vlucas/phpdotenv": "^5.6"
+  },
+  "scripts": {
+    "phpunit": "phpunit --stop-on-error --stop-on-failure --testdox",
+    "phpunit-xml": "phpunit --stop-on-error --stop-on-failure --coverage-clover phpunit.coverage.xml",
+    "phpcs-check": "phpcs --colors -s --standard=.phpcs.xml src tests",
+    "phpcs-fix": "phpcbf --colors -s --standard=.phpcs.xml src tests",
+    "phpcs-auto-check": "@phpcs-check --standard=.phpcs.xml src",
+    "phpcs-auto-fix": "@phpcs-fix --standard=.phpcs.xml",
+    "phpcs-auto-check-project": "phpcs --report-summary -p",
+    "phpcs-auto-fix-project": "phpcbf --report-summary -p src"
   }
 }

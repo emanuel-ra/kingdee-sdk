@@ -41,3 +41,5 @@ composer.lock
 /Client/composer.lock
 
 Client/composer.lock
+*/.phpunit.cache/*
+Client/.phpunit.cache/*
