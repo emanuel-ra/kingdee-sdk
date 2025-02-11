@@ -16,4 +16,13 @@ class Customers extends ClientWS
             throw new \Exception('API URL is not set in the configuration.');
         }
     }
+    public function callGetCustomer()
+    {
+        try {
+            $response = $this->soapClient->GetCustomer();
+            return json_decode($response->GetCustomerResult);
+        } catch (\SoapFault $e) {
+            return 'SOAP Error: ' . $e->getMessage();
+        }
+    }
 }
