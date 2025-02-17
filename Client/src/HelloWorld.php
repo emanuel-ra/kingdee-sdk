@@ -24,7 +24,7 @@ class HelloWorld extends ClientWS
             // Verificar si la respuesta contiene el resultado esperado
             return isset($response->HelloWorldResult) ? json_decode($response->HelloWorldResult, true) : null;
         } catch (\SoapFault $e) {
-            $this->debugSoap(); // Muestra la solicitud y respuesta en caso de error
+            //$this->debugSoap(); // Muestra la solicitud y respuesta en caso de error
             throw new \Exception('SOAP Error: ' . $e->getMessage());
         }
     }
