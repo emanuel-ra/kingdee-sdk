@@ -105,13 +105,25 @@ class ClientWS
     /**
      * 🔍 Método para depurar la solicitud y respuesta SOAP
      */
-    public function debugSoap()
+    public function debugSoapRequest()
     {
-        echo "\n==== SOAP REQUEST ====\n";
-        echo $this->formatXml($this->soapClient->__getLastRequest());
+        if ($this->soapClient) {
+            header("Content-Type: text/xml");
+            //echo "<br> ==== FORMATTED SOAP REQUEST ==== <br>";
+            //echo $this->formatXml($this->soapClient->__getLastRequest()); // XML formateado            
 
-        echo "\n==== SOAP RESPONSE ====\n";
-        echo $this->formatXml($this->soapClient->__getLastResponse());
+            // echo "<br> ==== FORMATTED SOAP RESPONSE ==== <br>";
+            echo $this->formatXml($this->soapClient->__getLastResponse()); // XML formateado
+            exit;
+        }
+    }
+    public function debugSoapResponse()
+    {
+        if ($this->soapClient) {
+            header("Content-Type: text/xml");
+            echo $this->formatXml($this->soapClient->__getLastResponse()); // XML formateado
+            exit;
+        }
     }
 
     /**
