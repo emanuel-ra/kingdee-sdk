@@ -5,25 +5,27 @@ namespace KingDee\Client;
 class HelloWorld extends ClientWS
 {
     private $soapClient;
-    private $wsdl;
+
     public function __construct()
     {
         parent::__construct();
-        $this->wsdl = $this->getApiUrl();
-        if ($this->wsdl !== null) {
-            $this->soapClient = new \SoapClient($this->wsdl);
-        } else {
-            throw new \Exception('API URL is not set in the configuration.');
-        }
+        $this->soapClient = $this->InitSoap();
     }
-
     public function callHelloWorld()
     {
         try {
-            $response = $this->soapClient->HelloWorld();
-            return json_decode($response->HelloWorldResult);
+
+            $params = [];
+            $response = $this->soapClient->__soapCall("HelloWorld", [$params]);
+
+            // 🛠 Llamar a la función de depuración después de la llamada SOAP
+            //$this->debugSoap();
+
+            // Verificar si la respuesta contiene el resultado esperado
+            return isset($response->HelloWorldResult) ? json_decode($response->HelloWorldResult, true) : null;
         } catch (\SoapFault $e) {
-            return 'SOAP Error: ' . $e->getMessage();
+            $this->debugSoap(); // Muestra la solicitud y respuesta en caso de error
+            throw new \Exception('SOAP Error: ' . $e->getMessage());
         }
     }
 }
