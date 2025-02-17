@@ -18,7 +18,8 @@ class ClientWS
      * @var array Configuration array containing API key and API URL.
      */
     private $config;
-
+    private $soapClient;
+    private $wsdl;
     /**
      * * ClientWS constructor.
      *
@@ -29,9 +30,44 @@ class ClientWS
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
         $this->config = [
-            'api_key' => $_ENV['API_KEY'] ?? null,
+            'api_id' => $_ENV['API_ID'] ?? null,
+            'api_secret' => $_ENV['APP_SECRET'] ?? null,
             'api_url' => $_ENV['API_URL'] ?? null,
+            'namespace' => 'http://tempuri.org/'
         ];
+    }
+
+    public function InitSoap()
+    {
+        $WSDL = $this->getApiUrl();
+        $API_ID = $this->getApiId();
+        $API_SECRET = $this->getApiSecret();
+        $NAMESPACE = $this->getNamespace();
+        if ($WSDL !== null) {
+            try {
+                $this->soapClient = new \SoapClient($WSDL, [
+                    'trace' => 1,   // Enable tracing for debugging
+                    'exceptions' => true // Throw exceptions on SOAP errors
+                ]);
+
+                $headers = array(
+                    'AppID' => $API_ID,
+                    'AppSecret' => $API_SECRET
+                );
+
+
+                $soapHeader = new \SoapHeader($NAMESPACE, 'MySoapHeader', $headers, false);
+
+                // Asignar el header al cliente SOAP
+                $this->soapClient->__setSoapHeaders($soapHeader);
+
+                return $this->soapClient;
+            } catch (\SoapFault $e) {
+                throw new \Exception('SOAP Client Error: ' . $e->getMessage());
+            }
+        } else {
+            throw new \Exception('API URL is not set in the configuration.');
+        }
     }
 
     /**
@@ -52,5 +88,41 @@ class ClientWS
     public function getApiUrl()
     {
         return $this->config['api_url'];
+    }
+    public function getApiId()
+    {
+        return $this->config['api_id'];
+    }
+    public function getApiSecret()
+    {
+        return $this->config['api_secret'];
+    }
+    public function getNamespace()
+    {
+        return $this->config['namespace'];
+    }
+
+    /**
+     * 🔍 Método para depurar la solicitud y respuesta SOAP
+     */
+    public function debugSoap()
+    {
+        echo "\n==== SOAP REQUEST ====\n";
+        echo $this->formatXml($this->soapClient->__getLastRequest());
+
+        echo "\n==== SOAP RESPONSE ====\n";
+        echo $this->formatXml($this->soapClient->__getLastResponse());
+    }
+
+    /**
+     * 📌 Formatear XML para que sea más legible
+     */
+    public function formatXml($xml)
+    {
+        $dom = new \DOMDocument();
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        $dom->loadXML($xml);
+        return $dom->saveXML();
     }
 }
