@@ -15,14 +15,21 @@ class Customers extends ClientWS
         try {
             $jsonString = json_encode($data, JSON_PRETTY_PRINT);
 
-            $params = [
-                'FilterJson' => $jsonString,
-            ];
+            $params = ['FilterJson' => $jsonString];
 
             $response = $this->soapClient->__soapCall("GetCustomer", [$params]);
-            return isset($response->GetCustomerResult) ? json_decode($response->GetCustomerResult, true) : null;
+
+
+            //$this->debugSoap();
+
+            // Verificar si la respuesta contiene el resultado esperado
+            if (isset($response->GetCustomerResult)) {
+                return new ServiceResponse(true, json_decode($response->GetCustomerResult, true));
+            }
+            return new ServiceResponse(false, null, "No se encontró el resultado esperado.");
+            //return isset($response->GetCustomerResult) ? json_decode($response->GetCustomerResult, true) : null;
         } catch (\SoapFault $e) {
-            return 'SOAP Error: ' . $e->getMessage();
+            return new ServiceResponse(false, null, $e->getMessage());
         }
     }
 }
